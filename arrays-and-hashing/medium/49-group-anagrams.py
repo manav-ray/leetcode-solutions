@@ -1,17 +1,23 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anaDict = {}
+
+        def create_counts(word: str) -> list:
+            res = [0] * 26
+            for c in word:
+                res[ord(c) - ord('a')] += 1
+            return str(res)
+
+        word_counts = []
+        for s in strs:
+            word_counts.append(create_counts(s))
         
-        for word in strs:
-            sortWord = ''.join(sorted(word))
-            if sortWord in anaDict:
-                anaDict[sortWord].append(word)
+
+        groups = {}
+
+        for i, s in enumerate(strs):
+            if word_counts[i] in groups:
+                groups[word_counts[i]].append(s)
             else:
-                anaDict[sortWord] = [word]
-        
-        res = []
-        
-        for key in anaDict:
-            res.append(anaDict[key])
-        
-        return res
+                groups[word_counts[i]] = [s]
+            
+        return list(groups.values())
