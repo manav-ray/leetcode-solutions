@@ -7,6 +7,7 @@ Monotonic increasing stack:
  - Keep on popping from stack while current height is smaller than heights before (monotonic).
     - With every pop, calculate the area -> popped height * (curr index - popped index)
 - The index stored in the stack doesn't represent the current index of the height, but rather the index of the last rectangle that is either the same height or taller.
+  This is because the current rectangle can also be extendend backwards.
     - We keep track of this since this rectangle can contribute to the current rectangle's area (not a bottleneck).  
 - After all of this is done, it's still possible that the stack has elements since they would be in increasing order.
     - Calculate area of these elements in a similar way -> popped_height * (len of heights - popped index)
